@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "487872249304",
+    "firebase_url": "https://equeue-649e1.firebaseio.com",
+    "project_id": "equeue-649e1",
+    "storage_bucket": "equeue-649e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487872249304:android:aa76d535738a8ef35046ad",
+        "android_client_info": {
+          "package_name": "com.project.himanshu.equeue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "487872249304-vbumlkmld55572uq8sbml983i470cib9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.himanshu.equeue",
+            "certificate_hash": "b6622b7bae5fdec7170562a1402a57d3b63d0210"
+          }
+        },
+        {
+          "client_id": "487872249304-vflv79shg12el6i9me6dv1p282i90qar.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHJjmguTxGUKjRyP1eEm8HWT9KQDWhdCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "487872249304-vflv79shg12el6i9me6dv1p282i90qar.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
