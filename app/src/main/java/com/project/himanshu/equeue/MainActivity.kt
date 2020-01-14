@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private val LOG_TAG = MainActivity::class.java.simpleName
-        private val BARCODE_READER_REQUEST_CODE = 1
+        val BARCODE_READER_REQUEST_CODE = 1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
