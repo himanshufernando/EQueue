@@ -25,9 +25,11 @@ class SplashActivity : FragmentActivity() {
 
         database = FirebaseDatabase.getInstance()
 
-        addTCCat()
+      //  addTCCat()
 
-        addUsers()
+       // addUsers()
+
+
 
     }
 
