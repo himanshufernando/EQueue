@@ -6,18 +6,24 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CaptureManager
 import com.project.himanshu.equeue.R
+import com.project.himanshu.equeue.viewmodels.HomeViewmodels
 import kotlinx.android.synthetic.main.activity_inline_scan.*
 
 class InlineScanActivity : AppCompatActivity() {
     lateinit var captureManager: CaptureManager
-    var scanState: Boolean = false
     var torchState: Boolean = false
+    var readedCode = ""
+
+    private val viewmodel: HomeViewmodels by viewModels { HomeViewmodels.LiveDataVMFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,37 +32,48 @@ class InlineScanActivity : AppCompatActivity() {
         captureManager = CaptureManager(this, barcodeView)
         captureManager.initializeFromIntent(intent, savedInstanceState)
 
-        btnScan.setOnClickListener {
-            txtResult.text = "scaning..."
-            barcodeView.decodeSingle(object: BarcodeCallback{
-                override fun barcodeResult(result: BarcodeResult?) {
-                    result?.let {
-                        txtResult.text = it.text
 
+
+
+        barcodeView.decodeContinuous(object: BarcodeCallback{
+            override fun barcodeResult(result: BarcodeResult?) {
+                result?.let {
+                    txtResult.text = it.text
+                    if(readedCode != it.text){
+                        viewmodel.validateQR(it.text)
                         val vib: Vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
                         if(vib.hasVibrator()){
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                                 // void vibrate (VibrationEffect vibe)
-                                vib.vibrate(
-                                    VibrationEffect.createOneShot(
-                                        1,
-                                        // The default vibration strength of the device.
-                                        VibrationEffect.DEFAULT_AMPLITUDE
-                                    )
-                                )
+                                vib.vibrate(VibrationEffect.createOneShot(1, VibrationEffect.DEFAULT_AMPLITUDE))
                             }else{
                                 // This method was deprecated in API level 26
                                 vib.vibrate(100)
                             }
                         }
                     }
-                }
+                    readedCode = it.text
 
-                override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {
                 }
-            })
+            }
+
+            override fun possibleResultPoints(resultPoints: MutableList<ResultPoint>?) {
+            }
+
+
+        })
+
+
+        viewmodel.qrReadRespons.observe(this){news ->
+            news.onSuccess {it
+
+            }
+            news.onFailure {it
+
+            }
         }
+
 
         btnTorch.setOnClickListener {
             if(torchState){
@@ -82,5 +99,14 @@ class InlineScanActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         captureManager.onDestroy()
+    }
+
+
+    fun callQRReaderCallBack(){
+
+
+
+
+
     }
 }

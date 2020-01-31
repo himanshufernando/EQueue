@@ -4,16 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_swive"
     app:startDestination="@id/view_pager_fragment">
-
     <fragment
         android:id="@+id/view_pager_fragment"
         android:name="com.project.himanshu.equeue.ui.login.LoginFragment"
         tools:layout="@layout/fragment_login">
-
-
     </fragment>
-
-
-
-
 </navigation>

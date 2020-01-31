@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.FragmentActivity
+import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.project.himanshu.equeue.R
@@ -21,7 +22,7 @@ class SplashActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         trasperat()
         setContentView(R.layout.activity_splash)
-
+        FirebaseApp.initializeApp(this)
 
         database = FirebaseDatabase.getInstance()
 
