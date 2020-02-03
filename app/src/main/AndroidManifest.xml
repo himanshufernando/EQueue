@@ -23,7 +23,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.home.InlineScanActivity"  android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait" >
+        <activity android:name=".ui.home.InlineScanActivity"  android:windowSoftInputMode="stateHidden" android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
 

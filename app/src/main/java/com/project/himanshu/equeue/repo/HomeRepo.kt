@@ -62,26 +62,6 @@ class HomeRepo {
         return result!!
     }
 
-    /* suspend fun loginValidation(userName: String, password: String): User {
-         var resultUser: User? = null
-
-         myRef = database?.getReference("User")
-         val query: Query = myRef!!.orderByChild("username_password").equalTo(userName+password)
-         query.addListenerForSingleValueEvent(object : ValueEventListener {
-             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                 val snapshotIterator = dataSnapshot.children
-             }
-             override fun onCancelled(databaseError: DatabaseError) {
-
-             }
-         })
-
-
-         return resultUser!!
-
-     }*/
-
-
     fun getTicketPrice(code: String): String {
         var ticketCategory = code.subSequence(3, 8)
         var output = ticketCategory.replace("B".toRegex(), "")

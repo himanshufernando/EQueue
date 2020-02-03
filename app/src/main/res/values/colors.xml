@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#4a69bd</color>
 
     <color name="colorBlueDark">#1e3799</color>
     <color name="colorBlueNormal">#4a69bd</color>
@@ -14,6 +14,8 @@
     <color name="colorLiteBlack">#CABBBBBB</color>
 
     <color name="edittext_background">#00000000</color>
+
+
 
 
 
