@@ -1,19 +1,13 @@
 package com.project.himanshu.equeue.repo
 
-import android.app.ActivityOptions
-import android.content.Context
-import android.content.Intent
-import com.google.gson.stream.JsonReader
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-
-import com.google.firebase.database.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.project.himanshu.equeue.Equeue
+import com.google.gson.stream.JsonReader
+import android.content.Context
+import com.google.firebase.database.*
 import com.project.himanshu.equeue.data.QrCode
-import com.project.himanshu.equeue.data.User
-import java.lang.Exception
+import com.project.himanshu.equeue.data.QrCodeReadRespons
+
 
 class HomeRepo {
 
@@ -29,49 +23,43 @@ class HomeRepo {
     }
 
 
-    suspend fun validateQR(code: String, contect: Context) {
+    suspend fun validateQR(code: String, contect: Context) : QrCodeReadRespons {
         var qrJson = ""
+        var result: QrCodeReadRespons? = null
         var ticketPrice = getTicketPrice(code)
         val ticketCategory = code[2]
 
+        var qrCode = QrCode(code)
 
-
-        if(ticketCategory.equals("A") && ticketPrice == "10000"){
-            println("qqqqq 10000 :$qrJson")
+        if (ticketCategory == 'A' && ticketPrice == "10000") {
             qrJson = QR10000
-        }else if((ticketCategory.equals("B")) && (ticketPrice == "5000")){
-            println("qqqqq 5000 :$qrJson")
+        } else if ((ticketCategory == 'B') && (ticketPrice == "5000")) {
             qrJson = QR5000
-        }else if((ticketCategory.equals("C")) && (ticketPrice == "2500")){
-            println("qqqqq 2500 :$qrJson")
+        } else if ((ticketCategory == 'C') && (ticketPrice == "2500")) {
             qrJson = QR2500
-        }else if((ticketCategory.equals("D")) && (ticketPrice == "1500")){
-            println("qqqqq 1500 :$qrJson")
+        } else if ((ticketCategory == 'D') && (ticketPrice == "1500")) {
             qrJson = QR1500
-        }else if((ticketCategory.equals("E")) && (ticketPrice == "1000")){
-            println("qqqqq 1000 :$qrJson")
+        } else if ((ticketCategory == 'E') && (ticketPrice == "1000")) {
             qrJson = QR1000
         }
-
-        println("qqqqq ticketCategory :"+ticketCategory+"P")
-        println("qqqqq ticketPrice :"+ticketPrice+"P")
-
-        println("qqqqq qrJson :$qrJson")
 
         contect.assets.open(qrJson).use { inputStream ->
             JsonReader(inputStream.reader()).use { jsonReader ->
                 val codes = object : TypeToken<List<QrCode>>() {}.type
                 val codeList: List<QrCode> = Gson().fromJson(jsonReader, codes)
-
-                for (codeInJson in codeList) {
-                    println("qqqqq codeInJson :$codeInJson")
+                result?.code_id = code
+                if (codeList.contains(qrCode)) {
+                    result?.code_reading_status = true
+                    result?.ticket_price = ticketPrice
+                } else {
+                    result?.code_reading_status = false
+                    result?.ticket_price = ticketPrice
                 }
-
 
             }
         }
 
-
+        return result!!
     }
 
     /* suspend fun loginValidation(userName: String, password: String): User {
@@ -94,10 +82,9 @@ class HomeRepo {
      }*/
 
 
-
-    fun getTicketPrice( code : String) : String{
-        var ticketCategory = code.subSequence(3,8)
-        var output = ticketCategory.replace("B".toRegex(),"")
+    fun getTicketPrice(code: String): String {
+        var ticketCategory = code.subSequence(3, 8)
+        var output = ticketCategory.replace("B".toRegex(), "")
         return output.trim().reversed()
 
     }
