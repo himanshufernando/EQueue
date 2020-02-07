@@ -17,7 +17,10 @@
 
 
 
-
-
+    <color name="colorTicket1000">#01AEF9</color>
+    <color name="colorTicket1500">#652E89</color>
+    <color name="colorTicket2500">#3EB04E</color>
+    <color name="colorTicket5000">#2B3098</color>
+    <color name="colorTicket10000">#F21622</color>
 
 </resources>
