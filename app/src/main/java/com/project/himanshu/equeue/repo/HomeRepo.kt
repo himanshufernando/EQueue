@@ -25,7 +25,8 @@ class HomeRepo {
 
     suspend fun validateQR(code: String, contect: Context) : QrCodeReadRespons {
         var qrJson = ""
-        var result: QrCodeReadRespons? = null
+
+        var readRespons: QrCodeReadRespons = QrCodeReadRespons(code,false,"","")
         var ticketPrice = getTicketPrice(code)
         val ticketCategory = code[2]
 
@@ -43,23 +44,31 @@ class HomeRepo {
             qrJson = QR1000
         }
 
+        readRespons.code_id = code
+
         contect.assets.open(qrJson).use { inputStream ->
             JsonReader(inputStream.reader()).use { jsonReader ->
                 val codes = object : TypeToken<List<QrCode>>() {}.type
                 val codeList: List<QrCode> = Gson().fromJson(jsonReader, codes)
-                result?.code_id = code
-                if (codeList.contains(qrCode)) {
-                    result?.code_reading_status = true
-                    result?.ticket_price = ticketPrice
+
+                return if (codeList.contains(qrCode)) {
+                    readRespons.code_reading_status = true
+                    readRespons.ticket_price = ticketPrice
+                    readRespons.ticket_category = ticketCategory.toString()
+                    readRespons
+
                 } else {
-                    result?.code_reading_status = false
-                    result?.ticket_price = ticketPrice
+                    readRespons.code_reading_status = false
+                    readRespons.ticket_price = ticketPrice
+                    readRespons.ticket_category =""
+                    readRespons
+
                 }
 
             }
         }
 
-        return result!!
+
     }
 
     fun getTicketPrice(code: String): String {
