@@ -25,8 +25,10 @@ class HomeRepo {
 
     suspend fun validateQR(code: String, contect: Context) : QrCodeReadRespons {
         var qrJson = ""
-
         var readRespons: QrCodeReadRespons = QrCodeReadRespons(code,false,"","")
+        if(code.equals("")){
+            return readRespons
+        }
         var ticketPrice = getTicketPrice(code)
         val ticketCategory = code[2]
 

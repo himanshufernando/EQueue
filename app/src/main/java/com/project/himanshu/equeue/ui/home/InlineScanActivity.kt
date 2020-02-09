@@ -85,12 +85,10 @@ class InlineScanActivity : AppCompatActivity() {
                 if(it.code_reading_status!!){
                     setBackgroundToLayout(it)
                 }else{
-                    setErrorMessage()
+                    if(!it.ticket_price.equals("")){ setErrorMessage() }
                 }
-
             }
             news.onFailure { it
-                println("aaaaaaaaaaaaaaaaaaaaaa it :"+it)
                 setErrorMessage()
             }
         }

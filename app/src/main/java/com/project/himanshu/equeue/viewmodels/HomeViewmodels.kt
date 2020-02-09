@@ -33,6 +33,7 @@ class HomeViewmodels(contect: Context) : ViewModel() {
                 showQRScanInUI(value)
                 emit(Result.success(value))
             } catch (ioException: Throwable) {
+                textTicketsPrice.set("Not valid ticket")
                 emit(Result.failure(ioException))
             }
 
