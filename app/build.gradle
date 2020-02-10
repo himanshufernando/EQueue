@@ -74,7 +74,7 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.2'
 
-    implementation "com.hanks:htextview-base:$htextview_version"
+    implementation 'com.hanks:htextview-base:0.1.6'
 
 
 

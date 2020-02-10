@@ -28,66 +28,11 @@ class SplashActivity : FragmentActivity() {
 
       //  addTCCat()
 
-       // addUsers()
+      // addUsers()
 
 
 
     }
-
-    private fun addCode(){
-
-
-
-    }
-
-
-    private fun addTCCat(){
-
-        myRef = database?.getReference("Ticket Category")
-
-        val cat1 = myRef!!.push()
-
-        cat1.child("price").setValue(10000)
-        cat1.child("category_code").setValue("A")
-        cat1.child("number_of_tickets").setValue(500)
-        cat1.child("category_name").setValue("10000 VVIP")
-
-        val cat2 = myRef!!.push()
-
-        cat2.child("price").setValue(5000)
-        cat2.child("category_code").setValue("B")
-        cat2.child("number_of_tickets").setValue(1000)
-        cat2.child("category_name").setValue("5000 VIP")
-
-
-
-        val cat3 = myRef!!.push()
-
-        cat3.child("price").setValue(2500)
-        cat3.child("category_code").setValue("C")
-        cat3.child("number_of_tickets").setValue(2000)
-        cat3.child("category_name").setValue("2500")
-
-
-        val cat4 = myRef!!.push()
-
-        cat4.child("price").setValue(1500)
-        cat4.child("category_code").setValue("D")
-        cat4.child("number_of_tickets").setValue(4000)
-        cat4.child("category_name").setValue("1500")
-
-
-        val cat5 = myRef!!.push()
-
-        cat5.child("price").setValue(1000)
-        cat5.child("category_code").setValue("E")
-        cat5.child("number_of_tickets").setValue(3000)
-        cat5.child("category_name").setValue("Student")
-
-
-    }
-
-
 
     private fun addUsers(){
 
@@ -96,85 +41,43 @@ class SplashActivity : FragmentActivity() {
 
         val newUser = myRef!!.push()
 
-        newUser.child("name").setValue("Nayomi")
-        newUser.child("userName").setValue("Nayomi@OBA321")
-        newUser.child("password").setValue("oba@nayomi321")
-        newUser.child("username_password").setValue("Nayomi@OBA321oba@nayomi321")
+        newUser.child("name").setValue("Himanshu")
+        newUser.child("userName").setValue("himanshu")
+        newUser.child("password").setValue("oba@hima321")
+        newUser.child("username_password").setValue("himanshuoba@hima321")
         newUser.child("type").setValue("O")
 
 
         val newUser1 = myRef!!.push()
 
-        newUser1.child("name").setValue("Grand Negombo")
-        newUser1.child("userName").setValue("GrandN@OBA123")
-        newUser1.child("password").setValue("oba@grandn123")
-        newUser.child("username_password").setValue("GrandN@OBA123oba@grandn123")
+        newUser1.child("name").setValue("Shimantha")
+        newUser1.child("userName").setValue("shimantha")
+        newUser1.child("password").setValue("oba@simbad123")
+        newUser1.child("username_password").setValue("shimanthaoba@simbad123")
         newUser1.child("type").setValue("O")
 
 
         val newUser2 = myRef!!.push()
 
-        newUser2.child("name").setValue("Grandeeza")
-        newUser2.child("userName").setValue("Grandeeza@OBA789")
-        newUser2.child("password").setValue("oba@grandeeza789")
-        newUser.child("username_password").setValue("Grandeeza@OBA789oba@grandeeza789")
+        newUser2.child("name").setValue("Dilran")
+        newUser2.child("userName").setValue("dilran")
+        newUser2.child("password").setValue("oba@bada789")
+        newUser2.child("username_password").setValue("dilranoba@bada789")
         newUser2.child("type").setValue("O")
 
 
 
         val newUser3 = myRef!!.push()
 
-        newUser3.child("name").setValue("Grand Wenappuwa")
-        newUser3.child("userName").setValue("GrandW@OBA321")
-        newUser3.child("password").setValue("oba@grandw321")
-        newUser.child("username_password").setValue("GrandW@OBA321oba@grandw321")
+        newUser3.child("name").setValue("Dinnuke")
+        newUser3.child("userName").setValue("dinnuke")
+        newUser3.child("password").setValue("oba@dinnuke321")
+        newUser3.child("username_password").setValue("dinnukeoba@dinnuke321")
         newUser3.child("type").setValue("O")
 
 
 
-        val newUser4 = myRef!!.push()
 
-        newUser4.child("name").setValue("Minal Studio")
-        newUser4.child("userName").setValue("Minal@OBA456")
-        newUser4.child("password").setValue("oba@minal456")
-        newUser.child("username_password").setValue("Minal@OBA456oba@minal456")
-        newUser4.child("type").setValue("O")
-
-
-        val newUser5 = myRef!!.push()
-
-        newUser5.child("name").setValue("Molly")
-        newUser5.child("userName").setValue("Molly@OBA456")
-        newUser5.child("password").setValue("oba@molly456")
-        newUser.child("username_password").setValue("Molly@OBA456oba@molly456")
-        newUser5.child("type").setValue("O")
-
-
-        val newUser6 = myRef!!.push()
-
-        newUser6.child("name").setValue("Dilan Fernando")
-        newUser6.child("userName").setValue("DilanF@OBA456")
-        newUser6.child("password").setValue("oba@dilan456")
-        newUser.child("username_password").setValue("DilanF@OBA456oba@dilan456")
-        newUser6.child("type").setValue("M")
-
-
-        val newUser7 = myRef!!.push()
-
-        newUser7.child("name").setValue("Dinnuke Jayawardene")
-        newUser7.child("userName").setValue("DinnukeJ@OBA456")
-        newUser7.child("password").setValue("oba@dinnuke456")
-        newUser.child("username_password").setValue("DinnukeJ@OBA456oba@dinnuke456")
-        newUser7.child("type").setValue("M")
-
-
-        val newUser8 = myRef!!.push()
-
-        newUser8.child("name").setValue("Himanshu Fernando")
-        newUser8.child("userName").setValue("HimanshuF@OBA456")
-        newUser8.child("password").setValue("oba@himanshu456")
-        newUser.child("username_password").setValue("HimanshuF@OBA456oba@himanshu456")
-        newUser8.child("type").setValue("M")
 
 
     }

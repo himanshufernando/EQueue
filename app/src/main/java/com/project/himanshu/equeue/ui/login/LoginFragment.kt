@@ -29,8 +29,6 @@ class LoginFragment : Fragment() {
             startActivity(i)
             activity?.finish()
         }
-
-
         return root
     }
 

@@ -9,5 +9,12 @@ class LoginViewmodels : ViewModel(){
 
 
 
+    fun loginValidation(){
+
+
+
+    }
+
+
 
 }
