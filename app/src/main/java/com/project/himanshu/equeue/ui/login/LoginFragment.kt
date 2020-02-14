@@ -7,9 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 
 import com.project.himanshu.equeue.R
+import com.project.himanshu.equeue.databinding.FragmentLoginBinding
 import com.project.himanshu.equeue.ui.home.InlineScanActivity
+import com.project.himanshu.equeue.viewmodels.LoginViewmodels
 import kotlinx.android.synthetic.main.fragment_login.view.*
 
 /**
@@ -17,9 +22,27 @@ import kotlinx.android.synthetic.main.fragment_login.view.*
  */
 class LoginFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var root = inflater.inflate(R.layout.fragment_login, container, false)
+    private val viewmodelLoging: LoginViewmodels by viewModels { LoginViewmodels.LiveDataVMFactory }
+    lateinit var binding:FragmentLoginBinding
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_login, container,false)
+        binding.loginviewmodel = viewmodelLoging
+
+
+
+        viewmodelLoging.newsList.observe(viewLifecycleOwner){news ->
+            news.onSuccess {it
+
+            }
+            news.onFailure {it
+
+            }
+        }
+
+       /* var root = inflater.inflate(R.layout.fragment_login, container, false)
 
         root.button.setOnClickListener {
 
@@ -28,8 +51,8 @@ class LoginFragment : Fragment() {
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(i)
             activity?.finish()
-        }
-        return root
+        }*/
+        return binding.root
     }
 
 
