@@ -34,7 +34,6 @@ class SplashActivity : FragmentActivity() {
 
       // addUsers()
 
-      // var android_id = Settings.Secure.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
 
        // println("qqqqqqqqqqqqqqq : $android_id")
 

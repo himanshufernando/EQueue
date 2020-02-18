@@ -56,6 +56,10 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.room:room-runtime:2.2.3'
+    implementation 'androidx.room:room-ktx:2.2.3'
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
 
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
@@ -76,6 +80,9 @@ dependencies {
 
     implementation 'com.hanks:htextview-base:0.1.6'
 
+    implementation 'com.tuyenmonkey:mkloader:1.4.0'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
 
 }

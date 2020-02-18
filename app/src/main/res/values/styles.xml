@@ -12,4 +12,12 @@
         <item name="cardPreventCornerOverlap">true</item>
         <item name="cardUseCompatPadding">false</item>
     </style>
+
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/colorBlack</item>
+    </style>
+
+
+
 </resources>

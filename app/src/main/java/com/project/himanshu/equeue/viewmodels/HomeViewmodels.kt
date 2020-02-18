@@ -21,36 +21,6 @@ class HomeViewmodels(contect: Context) : ViewModel() {
     var textTicketsPrice = ObservableField<String>()
 
 
-    init {
-        _qrCode.value = ""
-    }
-
-
-    val qrReadRespons = qrCode.switchMap { code ->
-        liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            try {
-                val value = repo.validateQR(code, contect)
-                showQRScanInUI(value)
-                emit(Result.success(value))
-            } catch (ioException: Throwable) {
-                textTicketsPrice.set("Not valid ticket")
-                emit(Result.failure(ioException))
-            }
-
-        }
-    }
-
-    fun validateQR(code: String) {
-        _qrCode.value = code
-    }
-
-    fun showQRScanInUI(respons : QrCodeReadRespons){
-        if(respons.code_reading_status!!){
-            textTicketsPrice.set(respons.ticket_price.toString())
-        }else{
-            textTicketsPrice.set("Not valid ticket")
-        }
-    }
 
     object LiveDataVMFactory : ViewModelProvider.Factory {
         var app: Context = Equeue.applicationContext()
