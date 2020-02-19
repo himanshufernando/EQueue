@@ -42,6 +42,7 @@ import com.project.himanshu.equeue.data.QrCode
 import com.project.himanshu.equeue.data.QrCodeReadRespons
 import com.project.himanshu.equeue.data.QrCodeWrite
 import com.project.himanshu.equeue.data.UserRespons
+import com.project.himanshu.equeue.data.db.OriginalTickets
 import com.project.himanshu.equeue.databinding.ActivityHomeBinding
 import com.project.himanshu.equeue.services.network.AppPrefs
 import com.project.himanshu.equeue.services.network.MediaplayerHandler
@@ -75,6 +76,8 @@ class InlineScanActivity : AppCompatActivity() {
     lateinit var binding: ActivityHomeBinding
 
     lateinit var textAnim: Animation
+
+    lateinit var originalTickets: OriginalTickets
 
     companion object {
         const val QR1000 = "qr_1000.json"
@@ -192,6 +195,13 @@ class InlineScanActivity : AppCompatActivity() {
 
 
         }
+
+
+
+
+        callback()
+
+
 
 
     }
@@ -318,7 +328,7 @@ class InlineScanActivity : AppCompatActivity() {
                     readRespons.ticket_category = tCat
                     progressbar.visibility = View.INVISIBLE
                     setBackgroundToLayout(readRespons)
-                    addQRcodeToFirebase(code, ref)
+                    addQRcodeToFirebase(code, tPrice, tCat)
                 } else {
                     progressbar.visibility = View.INVISIBLE
                     setErrorMessageForDuplicate()
@@ -337,11 +347,33 @@ class InlineScanActivity : AppCompatActivity() {
     }
 
 
-    private fun addQRcodeToFirebase(qrcode: String, ref: DatabaseReference) {
-        var newRef = ref.push()
-        var cq = QrCodeWrite("", qrcode, getCurentTime(), userID)
-        newRef.setValue(cq)
+    private fun addQRcodeToFirebase(qrcode: String, tp: String, tc: String) {
+
+        originalTickets = OriginalTickets(0, qrcode, qrcode, tc, getCurentTime(), userID, false)
+        viewmodel.addQR(originalTickets)
+
+        viewmodel.newsList.observe(this) { news ->
+            news.onSuccess { it
+
+            }
+            news.onFailure { it
+
+            }
+        }
+
+
+        viewmodel.qrFirebase.observe(this) { news ->
+            news.onSuccess { it
+                println("aaaaaaaaaaaaa xxx :"+it.toString())
+            }
+            news.onFailure { it
+
+            }
+        }
+
+
     }
+
 
 
     private fun addDuplicateQRcodeToFirebase(
@@ -624,6 +656,78 @@ class InlineScanActivity : AppCompatActivity() {
 
     }
 
+
+    private fun callback(){
+
+        val childEventListener1000 = object : ChildEventListener {
+            override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
+
+
+
+               // println("aaaaaaaaaaaaaaaaaaaaaa : ssd "+ dataSnapshot.children.)
+
+
+            }
+
+            override fun onChildChanged(dataSnapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
+
+            }
+
+            override fun onChildMoved(dataSnapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+
+            }
+        }
+
+        myRef = database?.getReference("1000")
+        myRef?.addChildEventListener(childEventListener1000)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        viewmodel.updateQRstatus.observe(this) { news ->
+            news.onSuccess { it
+                println("aaaaaaaaaaaaa xxx :"+it.toString())
+            }
+            news.onFailure { it
+
+            }
+        }
+
+
+
+
+
+    }
 
 }
 

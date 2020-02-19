@@ -10,16 +10,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 
 
-@Database(entities = [OriginalTickets::class, DuplicateTickets::class], version = 1, exportSchema = false)
-@TypeConverters(Converters::class)
+@Database(entities = [OriginalTickets::class], version = 1, exportSchema = false)
     abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun duplicateTickets(): DuplicateTickets
-    abstract fun originalTickets(): OriginalTickets
-
-
+    abstract fun originalDao(): OriginalDao
     companion object {
-
         // For Singleton instantiation
         @Volatile private var instance: AppDatabase? = null
 
@@ -33,6 +28,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
             return Room.databaseBuilder(context, AppDatabase::class.java, "equeu_data_base")
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
+
+                        println("ssssssssssss on cretare")
                         super.onCreate(db)
                     }
                 })
