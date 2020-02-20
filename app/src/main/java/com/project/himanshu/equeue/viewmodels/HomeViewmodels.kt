@@ -91,6 +91,65 @@ class HomeViewmodels(contect: Context,val dataDao : OriginalDao): ViewModel() {
 
 
 
+
+
+
+    val value1000: MutableLiveData<Float> by lazy {
+        MutableLiveData<Float>()
+    }
+
+
+
+    val value1500: MutableLiveData<Float> by lazy {
+        MutableLiveData<Float>()
+    }
+
+
+    val value2500: MutableLiveData<Float> by lazy {
+        MutableLiveData<Float>()
+    }
+
+
+    val value5000: MutableLiveData<Float> by lazy {
+        MutableLiveData<Float>()
+    }
+
+
+    val value10000: MutableLiveData<Float> by lazy {
+        MutableLiveData<Float>()
+    }
+
+
+    val value1000Dup: MutableLiveData<Float> by lazy {
+        MutableLiveData<Float>()
+    }
+
+
+
+    val value1500Dup: MutableLiveData<Float> by lazy {
+        MutableLiveData<Float>()
+    }
+
+
+    val value2500Dup: MutableLiveData<Float> by lazy {
+        MutableLiveData<Float>()
+    }
+
+
+    val value5000Dup: MutableLiveData<Float> by lazy {
+        MutableLiveData<Float>()
+    }
+
+
+    val value10000Dup: MutableLiveData<Float> by lazy {
+        MutableLiveData<Float>()
+    }
+
+
+
+
+
+
     object LiveDataVMFactory : ViewModelProvider.Factory {
         var app: Context = Equeue.applicationContext()
         private val dataDAO = AppDatabase.getInstance(app).originalDao()

@@ -16,12 +16,14 @@ import android.view.View
 import android.view.Window
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -47,6 +49,7 @@ import com.project.himanshu.equeue.databinding.ActivityHomeBinding
 import com.project.himanshu.equeue.services.network.AppPrefs
 import com.project.himanshu.equeue.services.network.MediaplayerHandler
 import com.project.himanshu.equeue.viewmodels.HomeViewmodels
+import com.tuyenmonkey.mkloader.MKLoader
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.dialog_chart.*
 import java.sql.Date
@@ -88,6 +91,30 @@ class InlineScanActivity : AppCompatActivity() {
     }
 
 
+    var val1000 = 0.0f
+    var val1500 = 0.0f
+    var val2500 = 0.0f
+    var val5000 = 0.0f
+    var val10000 = 0.0f
+
+    var val1000Dup = 0.0f
+    var val1500Dup = 0.0f
+    var val2500Dup = 0.0f
+    var val5000Dup = 0.0f
+    var val10000Dup = 0.0f
+
+
+    lateinit var textview_dub_1000: TextView
+    lateinit var textview_dub_1500: TextView
+    lateinit var textview_dub_2500: TextView
+    lateinit var textview_dub_5000: TextView
+    lateinit var textview_dub_10000: TextView
+
+    lateinit var progressbar_dublicate : MKLoader
+
+
+
+
     private val viewmodel: HomeViewmodels by viewModels { HomeViewmodels.LiveDataVMFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,54 +138,68 @@ class InlineScanActivity : AppCompatActivity() {
         barcodeView.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult?) {
                 result?.let {
-                    /* txtResult.text = it.text*/
-                    if (readedCode != it.text) {
 
-                        if (::dialogError.isInitialized) {
-                            if (dialogError != null) {
-                                dialogError.dismiss()
+                    try {
+                        if (readedCode != it.text) {
+
+                            if (::dialogError.isInitialized) {
+                                if (dialogError != null) {
+                                    dialogError.dismiss()
+                                }
                             }
-                        }
 
 
-                        if (::dialogDublicte.isInitialized) {
-                            if (dialogDublicte != null) {
-                                dialogDublicte.dismiss()
+                            if (::dialogDublicte.isInitialized) {
+                                if (dialogDublicte != null) {
+                                    dialogDublicte.dismiss()
+                                }
                             }
-                        }
 
 
-                        validateQR(it.text)
-
-                        try {
-                            val defaultSoundUri = Uri.parse(
-                                "android.resource://" + application.packageName + "/" + R.raw.editted_beep
-                            )
-                            val mediaplayerHandler =
-                                MediaplayerHandler.getInstance(application.applicationContext)
-                            mediaplayerHandler.playSound(defaultSoundUri, false)
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
 
 
-                        val vib: Vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
-                        if (vib.hasVibrator()) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                // void vibrate (VibrationEffect vibe)
-                                vib.vibrate(
-                                    VibrationEffect.createOneShot(
-                                        1,
-                                        VibrationEffect.DEFAULT_AMPLITUDE
-                                    )
+                            validateQR(it.text)
+
+                            try {
+                                val defaultSoundUri = Uri.parse(
+                                    "android.resource://" + application.packageName + "/" + R.raw.editted_beep
                                 )
-                            } else {
-                                // This method was deprecated in API level 26
-                                vib.vibrate(100)
+                                val mediaplayerHandler =
+                                    MediaplayerHandler.getInstance(application.applicationContext)
+                                mediaplayerHandler.playSound(defaultSoundUri, false)
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+
+
+                            val vib: Vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
+                            if (vib.hasVibrator()) {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    // void vibrate (VibrationEffect vibe)
+                                    vib.vibrate(
+                                        VibrationEffect.createOneShot(
+                                            1,
+                                            VibrationEffect.DEFAULT_AMPLITUDE
+                                        )
+                                    )
+                                } else {
+                                    // This method was deprecated in API level 26
+                                    vib.vibrate(100)
+                                }
                             }
                         }
+
+                    }catch ( ex : Exception){
+
+                        Toast.makeText(applicationContext, ex.toString(), Toast.LENGTH_SHORT).show()
+
                     }
+
+
+
+
                     readedCode = it.text
 
                 }
@@ -191,17 +232,95 @@ class InlineScanActivity : AppCompatActivity() {
             Toast.makeText(this, "Data loading,Please wait !!!", Toast.LENGTH_SHORT)
                 .show()
 
-            pie1000()
+
+            try {
+                pie1000()
+            }catch (ex : Exception){
+                Toast.makeText(applicationContext, ex.toString(), Toast.LENGTH_SHORT).show()
+            }
+
 
 
         }
 
 
 
+        viewmodel.value1000.observe(this) { value ->
+            val1000 = value
+        }
 
-        callback()
+        viewmodel.value1500.observe(this) { value ->
+            val1500 = value
+        }
+
+        viewmodel.value2500.observe(this) { value ->
+            val2500 = value
+        }
+
+        viewmodel.value5000.observe(this) { value ->
+            val5000 = value
+        }
+
+        viewmodel.value10000.observe(this) { value ->
+            val10000 = value
+        }
 
 
+        viewmodel.value1000Dup.observe(this) { value ->
+            val1000Dup = value
+
+            if (::dialogDetails.isInitialized) {
+                if ((dialogDetails != null) && (dialogDetails.isShowing)) {
+                    textview_dub_1000.text= "1000 Tickets - $value"
+                }
+            }
+
+
+        }
+
+        viewmodel.value1500Dup.observe(this) { value ->
+            val1500Dup = value
+            if (::dialogDetails.isInitialized) {
+                if ((dialogDetails != null) && (dialogDetails.isShowing)) {
+                    textview_dub_1500.text= "1500 Tickets - $value"
+                }
+            }
+        }
+
+        viewmodel.value2500Dup.observe(this) { value ->
+            val2500Dup = value
+            if (::dialogDetails.isInitialized) {
+                if ((dialogDetails != null) && (dialogDetails.isShowing)) {
+                    textview_dub_2500.text= "2500 Tickets - $value"
+                }
+            }
+        }
+
+        viewmodel.value5000Dup.observe(this) { value ->
+            val5000Dup = value
+
+            if (::dialogDetails.isInitialized) {
+                if ((dialogDetails != null) && (dialogDetails.isShowing)) {
+                    textview_dub_5000.text= "5000 Tickets - $value"
+                }
+            }
+        }
+
+        viewmodel.value10000Dup.observe(this) { value ->
+            val10000Dup = value
+
+
+
+
+
+            if (::dialogDetails.isInitialized) {
+                if ((dialogDetails != null) && (dialogDetails.isShowing)) {
+                    textview_dub_10000.text= "10000 Tickets - $value"
+
+                    progressbar_dublicate.visibility = View.INVISIBLE
+                }
+            }
+        }
 
 
     }
@@ -353,27 +472,30 @@ class InlineScanActivity : AppCompatActivity() {
         viewmodel.addQR(originalTickets)
 
         viewmodel.newsList.observe(this) { news ->
-            news.onSuccess { it
+            news.onSuccess {
+                it
 
             }
-            news.onFailure { it
+            news.onFailure {
+                it
 
             }
         }
 
 
         viewmodel.qrFirebase.observe(this) { news ->
-            news.onSuccess { it
-                println("aaaaaaaaaaaaa xxx :"+it.toString())
+            news.onSuccess {
+                it
+
             }
-            news.onFailure { it
+            news.onFailure {
+                it
 
             }
         }
 
 
     }
-
 
 
     private fun addDuplicateQRcodeToFirebase(
@@ -494,13 +616,7 @@ class InlineScanActivity : AppCompatActivity() {
     }
 
 
-    private fun showPieChartDialog(
-        value1000: Float,
-        value1500: Float,
-        value2500: Float,
-        value5000: Float,
-        value10000: Float
-    ) {
+    private fun showPieChartDialog() {
 
         if (::dialogDetails.isInitialized) {
             if (dialogDetails != null) {
@@ -516,15 +632,41 @@ class InlineScanActivity : AppCompatActivity() {
         dialogDetails.setContentView(R.layout.dialog_chart)
         dialogDetails.setCancelable(true)
 
-        var pie: PieChart = dialogDetails.findViewById(R.id.pieChart_2500)
+        var pie: PieChart = dialogDetails.findViewById(R.id.pieChart)
+        var pie1000: PieChart = dialogDetails.findViewById(R.id.pieChart_1000)
+        var pie1500: PieChart = dialogDetails.findViewById(R.id.pieChart_1500)
+        var pie2500: PieChart = dialogDetails.findViewById(R.id.pieChart_2500)
+        var pie5000: PieChart = dialogDetails.findViewById(R.id.pieChart_5000)
+        var pie10000: PieChart = dialogDetails.findViewById(R.id.pieChart_10000)
+
+
+
+        textview_dub_1000 = dialogDetails.findViewById(R.id.textview_dub_1000)
+        textview_dub_1500 = dialogDetails.findViewById(R.id.textview_dub_1500)
+        textview_dub_2500 = dialogDetails.findViewById(R.id.textview_dub_2500)
+        textview_dub_5000 = dialogDetails.findViewById(R.id.textview_dub_5000)
+        textview_dub_10000 = dialogDetails.findViewById(R.id.textview_dub_10000)
+
+        progressbar_dublicate= dialogDetails.findViewById(R.id.progressbar_dublicate)
 
 
         val yVals = ArrayList<PieEntry>()
-        yVals.add(PieEntry(value1000, ""))
-        yVals.add(PieEntry(value1500, ""))
-        yVals.add(PieEntry(value2500, ""))
-        yVals.add(PieEntry(value5000, ""))
-        yVals.add(PieEntry(value10000, ""))
+        if (val1000 > 0.0) {
+            yVals.add(PieEntry(val1000, ""))
+        }
+
+        if (val1500 > 0.0) {
+            yVals.add(PieEntry(val1500, ""))
+        }
+        if (val2500 > 0.0) {
+            yVals.add(PieEntry(val2500, ""))
+        }
+        if (val5000 > 0.0) {
+            yVals.add(PieEntry(val5000, ""))
+        }
+        if (val10000 > 0.0) {
+            yVals.add(PieEntry(val10000, ""))
+        }
 
 
         val dataSet = PieDataSet(yVals, "")
@@ -553,6 +695,124 @@ class InlineScanActivity : AppCompatActivity() {
         floatingActionButton.visibility = View.VISIBLE
 
 
+        //1000
+
+        val yVals_1000 = ArrayList<PieEntry>()
+        yVals_1000.add(PieEntry(val1000, ""))
+        yVals_1000.add(PieEntry(4000f, ""))
+
+
+        val dataSet_1000 = PieDataSet(yVals_1000, "")
+        dataSet_1000.valueTextSize = 17f
+        dataSet_1000.valueTextColor = Color.WHITE
+
+        val colors_1000 = java.util.ArrayList<Int>()
+        colors_1000.add(resources.getColor(R.color.colorTicket1000))
+        colors_1000.add(resources.getColor(R.color.colorBlack))
+
+        dataSet_1000.colors = colors_1000
+        val data_1000 = PieData(dataSet_1000)
+        pie1000.data = data_1000
+        pie1000.isDrawHoleEnabled = false
+        pie1000.legend.isEnabled = false
+        pie1000.description.isEnabled = false
+
+
+        //1500
+
+        val yVals_1500 = ArrayList<PieEntry>()
+        yVals_1500.add(PieEntry(val1500, ""))
+        yVals_1500.add(PieEntry(8000f, ""))
+
+
+        val dataSet_1500 = PieDataSet(yVals_1500, "")
+        dataSet_1500.valueTextSize = 17f
+        dataSet_1500.valueTextColor = Color.WHITE
+
+        val colors_1500 = java.util.ArrayList<Int>()
+        colors_1500.add(resources.getColor(R.color.colorTicket1500))
+        colors_1500.add(resources.getColor(R.color.colorBlack))
+
+        dataSet_1500.colors = colors_1500
+        val data_1500 = PieData(dataSet_1500)
+        pie1500.data = data_1500
+        pie1500.isDrawHoleEnabled = false
+        pie1500.legend.isEnabled = false
+        pie1500.description.isEnabled = false
+
+
+        //2500
+
+        val yVals_2500 = ArrayList<PieEntry>()
+        yVals_2500.add(PieEntry(val2500, ""))
+        yVals_2500.add(PieEntry(3500f, ""))
+
+
+        val dataSet_2500 = PieDataSet(yVals_2500, "")
+        dataSet_2500.valueTextSize = 17f
+        dataSet_2500.valueTextColor = Color.WHITE
+
+        val colors_2500 = java.util.ArrayList<Int>()
+        colors_2500.add(resources.getColor(R.color.colorTicket2500))
+        colors_2500.add(resources.getColor(R.color.colorBlack))
+
+        dataSet_2500.colors = colors_2500
+        val data_2500 = PieData(dataSet_2500)
+        pie2500.data = data_2500
+        pie2500.isDrawHoleEnabled = false
+        pie2500.legend.isEnabled = false
+        pie2500.description.isEnabled = false
+
+
+        //5000
+
+        val yVals_5000 = ArrayList<PieEntry>()
+        yVals_5000.add(PieEntry(val5000, ""))
+        yVals_5000.add(PieEntry(1000f, ""))
+
+
+        val dataSet_5000 = PieDataSet(yVals_5000, "")
+        dataSet_5000.valueTextSize = 17f
+        dataSet_5000.valueTextColor = Color.WHITE
+
+        val colors_5000 = java.util.ArrayList<Int>()
+        colors_5000.add(resources.getColor(R.color.colorTicket5000))
+        colors_5000.add(resources.getColor(R.color.colorBlack))
+
+        dataSet_5000.colors = colors_5000
+        val data_5000 = PieData(dataSet_5000)
+        pie5000.data = data_5000
+        pie5000.isDrawHoleEnabled = false
+        pie5000.legend.isEnabled = false
+        pie5000.description.isEnabled = false
+
+
+        //10000
+
+        val yVals_10000 = ArrayList<PieEntry>()
+        yVals_10000.add(PieEntry(val10000, ""))
+        yVals_10000.add(PieEntry(500f, ""))
+
+
+        val dataSet_10000 = PieDataSet(yVals_10000, "")
+        dataSet_10000.valueTextSize = 17f
+        dataSet_10000.valueTextColor = Color.WHITE
+
+        val colors_10000 = java.util.ArrayList<Int>()
+        colors_10000.add(resources.getColor(R.color.colorTicket10000))
+        colors_10000.add(resources.getColor(R.color.colorBlack))
+
+        dataSet_10000.colors = colors_10000
+        val data_10000 = PieData(dataSet_10000)
+        pie10000.data = data_10000
+        pie10000.isDrawHoleEnabled = false
+        pie10000.legend.isEnabled = false
+        pie10000.description.isEnabled = false
+
+
+
+
+
         dialogDetails.show()
 
     }
@@ -560,13 +820,11 @@ class InlineScanActivity : AppCompatActivity() {
 
     private fun pie1000() {
 
-        var thousand = 0f
-
         var ref = database?.getReference("1000")
         ref?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                thousand = dataSnapshot.children.count().toFloat()
-                pie1500(thousand)
+                viewmodel.value1000.value = dataSnapshot.children.count().toFloat()
+                pie1500()
 
             }
 
@@ -579,15 +837,86 @@ class InlineScanActivity : AppCompatActivity() {
     }
 
 
-    private fun pie1500(value1000: Float) {
 
-        var thousandfive = 0f
 
+    private fun pieDublicate() {
+
+
+        var ref1 = database?.getReference("1000Duplicate")
+        ref1?.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                viewmodel.value1000Dup.value = dataSnapshot.children.count().toFloat()
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+
+
+        var ref2 = database?.getReference("1500Duplicate")
+        ref2?.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                viewmodel.value1500Dup.value = dataSnapshot.children.count().toFloat()
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+
+        var ref3 = database?.getReference("2500Duplicate")
+        ref3?.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                viewmodel.value2500Dup.value = dataSnapshot.children.count().toFloat()
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+
+        var ref4 = database?.getReference("5000Duplicate")
+        ref4?.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                viewmodel.value5000Dup.value = dataSnapshot.children.count().toFloat()
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+
+
+        var ref5 = database?.getReference("10000Duplicate")
+        ref5?.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                viewmodel.value10000Dup.value = dataSnapshot.children.count().toFloat()
+
+            }
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+    }
+
+
+
+    private fun pie1500() {
         var ref = database?.getReference("1500")
         ref?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                thousandfive = dataSnapshot.children.count().toFloat()
-                pie2500(value1000, thousandfive)
+                viewmodel.value1500.value = dataSnapshot.children.count().toFloat()
+                pie2500()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -599,14 +928,13 @@ class InlineScanActivity : AppCompatActivity() {
     }
 
 
-    private fun pie2500(value1000: Float, value1500: Float) {
+    private fun pie2500() {
 
         var ref = database?.getReference("2500")
         ref?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var twothousandfive = 0f
-                twothousandfive = dataSnapshot.children.count().toFloat()
-                pie5000(value1000, value1500, twothousandfive)
+                viewmodel.value2500.value = dataSnapshot.children.count().toFloat()
+                pie5000()
 
             }
 
@@ -619,15 +947,13 @@ class InlineScanActivity : AppCompatActivity() {
     }
 
 
-    private fun pie5000(value1000: Float, value1500: Float, value2500: Float) {
-
-        var fivethousand = 0f
+    private fun pie5000() {
 
         var ref = database?.getReference("5000")
         ref?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                fivethousand = dataSnapshot.children.count().toFloat()
-                pie10000(value1000, value1500, value2500, fivethousand)
+                viewmodel.value5000.value = dataSnapshot.children.count().toFloat()
+                pie10000()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -639,13 +965,14 @@ class InlineScanActivity : AppCompatActivity() {
     }
 
 
-    private fun pie10000(value1000: Float, value1500: Float, value2500: Float, value5000: Float) {
-        var tenyhousand = 0f
+    private fun pie10000() {
+
         var ref = database?.getReference("10000")
         ref?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                tenyhousand = dataSnapshot.children.count().toFloat()
-                showPieChartDialog(value1000, value1500, value2500, value5000, tenyhousand)
+                viewmodel.value2500.value = dataSnapshot.children.count().toFloat()
+                pieDublicate()
+                showPieChartDialog()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -656,78 +983,6 @@ class InlineScanActivity : AppCompatActivity() {
 
     }
 
-
-    private fun callback(){
-
-        val childEventListener1000 = object : ChildEventListener {
-            override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
-
-
-
-               // println("aaaaaaaaaaaaaaaaaaaaaa : ssd "+ dataSnapshot.children.)
-
-
-            }
-
-            override fun onChildChanged(dataSnapshot: DataSnapshot, previousChildName: String?) {
-
-            }
-
-            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
-
-            }
-
-            override fun onChildMoved(dataSnapshot: DataSnapshot, previousChildName: String?) {
-
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
-        }
-
-        myRef = database?.getReference("1000")
-        myRef?.addChildEventListener(childEventListener1000)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        viewmodel.updateQRstatus.observe(this) { news ->
-            news.onSuccess { it
-                println("aaaaaaaaaaaaa xxx :"+it.toString())
-            }
-            news.onFailure { it
-
-            }
-        }
-
-
-
-
-
-    }
 
 }
 

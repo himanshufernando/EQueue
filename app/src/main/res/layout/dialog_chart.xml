@@ -1,138 +1,470 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart_2500"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_margin="20dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/LinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/pieChart_2500"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
-
-
-        <RelativeLayout
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:background="@color/colorTicket1000"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="center_vertical">
-        </RelativeLayout>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorBlack"
-            android:text="1000"
-            android:textSize="17sp" />
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:background="@color/colorTicket1500"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="center_vertical">
-        </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="5dp">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:text="Total Summary"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="17sp" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorBlack"
-            android:text="1500"
-            android:textSize="17sp" />
-
-        <RelativeLayout
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:background="@color/colorTicket2500"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="center_vertical">
-        </RelativeLayout>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorBlack"
-            android:text="2500"
-            android:textSize="17sp" />
+            </LinearLayout>
 
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/LinearLayout"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40dp" />
+
+                <LinearLayout
+                    android:id="@+id/LinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:background="@color/colorTicket1000"></RelativeLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="1000"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+                    <RelativeLayout
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:background="@color/colorTicket1500"></RelativeLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="1500"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+                    <RelativeLayout
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:background="@color/colorTicket2500"></RelativeLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="2500"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
 
-        <RelativeLayout
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:background="@color/colorTicket5000"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="center_vertical">
-        </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:background="@color/colorTicket5000"></RelativeLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorBlack"
-            android:text="5000"
-            android:textSize="17sp" />
-
-
-        <RelativeLayout
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:background="@color/colorTicket10000"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="center_vertical">
-        </RelativeLayout>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:fontFamily="@font/open_sans_semibold"
-            android:textColor="@color/colorBlack"
-            android:text="10000"
-            android:textSize="17sp" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="5000"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
 
 
-    </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:background="@color/colorTicket10000"></RelativeLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="10000"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
 
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textview_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="1000"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart_1000"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/textview_1"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="100dp"
+                        android:layout_centerHorizontal="true" />
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/textview_2"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="1500"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart_1500"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/textview_2"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="100dp"
+                        android:layout_centerHorizontal="true" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
 
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textview_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="2500"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart_2500"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/textview_3"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="100dp"
+                        android:layout_centerHorizontal="true" />
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:id="@+id/textview_4"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="5000"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart_5000"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/textview_4"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="100dp"
+                        android:layout_centerHorizontal="true" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textview_5"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="10000"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart_10000"
+                        android:layout_width="match_parent"
+                        android:layout_below="@+id/textview_5"
+                        android:layout_marginTop="5dp"
+                        android:layout_height="100dp"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="15dp">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:text="Duplicate Tickets"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="17sp" />
+
+                <com.tuyenmonkey.mkloader.MKLoader
+                    android:id="@+id/progressbar_dublicate"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    app:mk_color="@color/colorTicket10000"
+                    android:layout_marginLeft="20dp"
+                    app:mk_type="Whirlpool" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="15dp">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textview_dub_1000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="1000"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textview_dub_1500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="1000"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="15dp">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textview_dub_2500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="1000"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textview_dub_5000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="1000"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="15sp" />
+
+
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textview_dub_10000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:text="1000"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
